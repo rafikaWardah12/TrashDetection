@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+//    id("kotlin-kapt")
+//    id("kotlin-parcelize")
+//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -70,5 +73,42 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("org.tensorflow:tensorflow-lite-task-vision:0.3.1")
+//    implementation("org.tensorflow:tensorflow-lite-task-vision:0.3.1")
+
+    // Lifecycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+
+    // Dagger-hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+//    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+//    kapt("androidx.hilt:hilt-compiler:1.1.0")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Icons
+    implementation("androidx.compose.material:material-icons-core-android:1.6.1")
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.1")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Coil - Image Loading
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+    //coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    //    Carousel
+    implementation("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")
 }
