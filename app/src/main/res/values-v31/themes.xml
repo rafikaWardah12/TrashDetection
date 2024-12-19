@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.TrashDetection.NoActionBar" parent="android:Theme.Material.Light.NoActionBar" />
     <!--    <style name="Theme.TrashDetection" parent="Theme.SplashScreen">-->
     <!--        <item name="android:windowSplashScreenBackground">@color/background</item>-->
     <!--        <item name="android:statusBarColor">@color/background</item>-->
-    <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_background</item>-->
-    <!--        <item name="postSplashScreenTheme">@style/Theme.Karier.NoActionBar</item>-->
+    <!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_background</item>-->
+    <!--        <item name="android:splashScreenTheme">@style/Theme.TrashDetection.NoActionBar</item>-->
     <!--    </style>-->
 </resources>

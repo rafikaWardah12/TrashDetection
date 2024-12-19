@@ -61,6 +61,12 @@ fun BottomBar(
                 screen = Screen.Dashboard,
                 iconSelected = ImageVector.vectorResource(id = R.drawable.ic_filled_beranda),
             ),
+            NavigationItem(
+                title = "Artikel",
+                icon = ImageVector.vectorResource(id = R.drawable.ic_artikel),
+                screen = Screen.ListArtikel,
+                iconSelected = ImageVector.vectorResource(id = R.drawable.ic_artikel),
+            )
         )
 
         navigationItems.map { item ->
