@@ -39,7 +39,8 @@ import com.example.trashdetection.ui.theme.TrashDetectionTheme
 fun DashboardScreen(
     modifier: Modifier = Modifier,
     navigateToListArtikel: () -> Unit,
-    navigateToDetailArtikel: (id: String, title: String) -> Unit
+    navigateToDetailArtikel: (id: String, title: String) -> Unit,
+    navigateToCamera: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -73,6 +74,7 @@ fun DashboardScreen(
                         contentDescription = "Kamera",
                         modifier =
                         modifier
+                            .clickable { navigateToCamera() }
                             .shadow(
                                 elevation = 30.dp,
                                 ambientColor = Color.Cyan,
@@ -135,6 +137,9 @@ fun DashboardScreen(
 @Composable
 private fun DashboardScreenPreview() {
     TrashDetectionTheme {
-        DashboardScreen(navigateToListArtikel = {}, navigateToDetailArtikel = { id, title -> })
+        DashboardScreen(
+            navigateToListArtikel = {},
+            navigateToDetailArtikel = { id, title -> },
+            navigateToCamera = {})
     }
 }

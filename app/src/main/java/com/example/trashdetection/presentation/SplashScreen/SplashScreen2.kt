@@ -57,14 +57,14 @@ fun SplashScreen2(onTimeout: () -> Unit) {
             )
         ) {
             Image(
-                painter = painterResource(id = R.drawable.image_opening), // Ganti dengan nama file yang di-upload
+                painter = painterResource(id = R.drawable.ic_logo_no_bg), // Ganti dengan nama file yang di-upload
                 contentDescription = null,
                 modifier = Modifier
                     .size(200.dp)
                     .align(Alignment.CenterHorizontally)
             )
             Text(
-                text = "Karier.id",
+                text = "Trash.id",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center

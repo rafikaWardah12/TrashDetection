@@ -1,10 +1,12 @@
 package com.example.trashdetection
 
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,6 +18,8 @@ import com.example.thrivein.ui.screen.article.detail.DetailArticleScreen
 import com.example.thrivein.ui.screen.article.list.ListArticleScreen
 import com.example.trashdetection.presentation.Component.BottomBar
 import com.example.trashdetection.presentation.Dashboard.DashboardScreen
+import com.example.trashdetection.presentation.Deteksi.Camera
+import com.example.trashdetection.presentation.Deteksi.DeteksiObjek
 import com.example.trashdetection.presentation.OnBoarding.OnBoardingScreen
 
 @Composable
@@ -25,6 +29,7 @@ fun TrashApp(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val context = LocalContext.current
 
     Scaffold(
         modifier = modifier,
@@ -65,10 +70,22 @@ fun TrashApp(
                                 articleTitle
                             )
                         )
+                    },
+                    navigateToCamera = {
+                        val intent = Intent(context, Camera::class.java)
+                        context.startActivity(intent)
                     })
+
             }
 
             composable(route = Screen.Detection.route) {
+                DeteksiObjek(navigateToDashboard = {
+                    navController.navigate(Screen.Dashboard.route) {
+                        // Menambahkan popUpTo agar kembali ke Dashboard tanpa balik ke screen sebelumnya
+                        popUpTo(Screen.Dashboard.route) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                })
             }
 
             composable(route = Screen.ListArtikel.route) {
