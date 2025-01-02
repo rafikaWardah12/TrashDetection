@@ -4,6 +4,6 @@
         <color android:color="@color/background"/>
     </item>
     <item>
-        <bitmap android:src="@drawable/image_opening" android:gravity="center"/>
+        <bitmap android:src="@drawable/ic_logo_no_bg" android:gravity="center"/>
     </item>
 </selector>

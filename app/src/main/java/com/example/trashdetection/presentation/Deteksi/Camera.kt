@@ -17,10 +17,14 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.trashdetection.databinding.ActivityMainBinding
+import com.example.trashdetection.domain.BoundingBox
+import com.example.trashdetection.domain.Constant.LABELS_PATH
+import com.example.trashdetection.domain.Constant.MODEL_PATH
+import com.example.trashdetection.domain.TFLiteClassifier
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class Camera : ComponentActivity() {
+class Camera : ComponentActivity(), TFLiteClassifier.DetectorListener {
     private lateinit var binding: ActivityMainBinding
     private var isFrontCamera = false
 
@@ -28,7 +32,7 @@ class Camera : ComponentActivity() {
     private var imageAnalyzer: ImageAnalysis? = null
     private var camera: Camera? = null
     private var cameraProvider: ProcessCameraProvider? = null
-//    private  lateinit var detector: TFLite
+    private lateinit var detector: TFLiteClassifier
 
     private lateinit var cameraExecutor: ExecutorService
 
@@ -37,12 +41,21 @@ class Camera : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        detector
+        detector = TFLiteClassifier(baseContext, MODEL_PATH, LABELS_PATH, this)
+        detector.setup()
 
         if (allPermissionsGranted()) {
             startCamera()
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+        }
+
+        //Pengecekan File model dan label
+        if (!applicationContext.assets.list("")!!.contains(MODEL_PATH)) {
+            Log.e("Debug", "Model Not found: $MODEL_PATH")
+        }
+        if (!applicationContext.assets.list("")!!.contains(LABELS_PATH)) {
+            Log.e("Debug", "Model Not found: $LABELS_PATH")
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -114,7 +127,7 @@ class Camera : ComponentActivity() {
                 bitmapBuffer, 0, 0, bitmapBuffer.width, bitmapBuffer.height,
                 matrix, true
             )
-//            detector.detect(rotateBitmap)
+            detector.detectObject(rotateBitmap)
         }
 
         cameraProvider.unbindAll()
@@ -146,7 +159,7 @@ class Camera : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        detector.clear()
+        detector.clear()
         cameraExecutor.shutdown()
     }
 
@@ -156,6 +169,20 @@ class Camera : ComponentActivity() {
             startCamera()
         } else {
             requestPermissionLauncher.launch(REQUIRED_PERMISSIONS)
+        }
+    }
+
+    override fun onEmptyDetect() {
+        binding.overlay.invalidate()
+    }
+
+    override fun onDetect(boundingBox: List<BoundingBox>, inferenceTime: Long) {
+        runOnUiThread {
+            binding.inferenceTime.text = "${inferenceTime}ms"
+            binding.overlay.apply {
+                setResults(boundingBox)
+                invalidate()
+            }
         }
     }
 

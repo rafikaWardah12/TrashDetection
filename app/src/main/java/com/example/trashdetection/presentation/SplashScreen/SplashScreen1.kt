@@ -41,7 +41,7 @@ fun SplashScreen1() {
             .background(PrimaryBlue200)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.image_opening), // Ganti dengan nama file yang di-upload
+            painter = painterResource(id = R.drawable.ic_logo_no_bg), // Ganti dengan nama file yang di-upload
             contentDescription = null,
             modifier = Modifier
                 .size(200.dp)
